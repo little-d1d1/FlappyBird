@@ -1,9 +1,10 @@
-#include "obstacle.h"
+#include "Obstacle.h"
 
 Obstacles::Obstacles(QWidget *parent)
     : QWidget(parent)
 {
     resize(5000,5000);
+    obsinfo = std::make_shared<ObsInfo>();
 }
 
 Obstacles::~Obstacles()
@@ -11,27 +12,21 @@ Obstacles::~Obstacles()
 
 }
 
-void Obstacles::update_obsname1(const QString& n) throw()
+void Obstacles::set_obsinfo(const std::shared_ptr<ObsInfo>& sp) throw()
 {
-    this->obsname1 = n;
-}
-
-void Obstacles::update_obsname2(const QString& n) throw()
-{
-    this->obsname2 = n;
+    obsinfo = sp;
 }
 
 void Obstacles::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    painter.drawPixmap(0, 0, 100, 500, obsname1);
+    painter.drawPixmap(0, 0, 100, 500, obsinfo->get_obsname1());
 
     //间隔是200
 
     QPainter painter1(this);
-    painter1.drawPixmap(0, 700, 100, 800, obsname2);
+    painter1.drawPixmap(0, 700, 100, 800, obsinfo->get_obsname2());
 }
-
 
 
 

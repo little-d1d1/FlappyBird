@@ -7,6 +7,8 @@
 #include <QLabel>
 #include <QRandomGenerator>
 #include <qstring.h>
+#include <memory>
+#include "../common/Info.h"
 
 class Obstacles : public QWidget
 {
@@ -15,12 +17,12 @@ class Obstacles : public QWidget
 public:
     Obstacles(QWidget *parent = 0);
     ~Obstacles();
-    void update_obsname1(const QString& n) throw();
-    void update_obsname2(const QString& n) throw();
+    void set_obsinfo(const std::shared_ptr<ObsInfo>& sp) throw();
     void paintEvent(QPaintEvent *);
 
 private:
-    QString obsname1, obsname2;
+    std::shared_ptr<ObsInfo> obsinfo;
+
 };
 
 
