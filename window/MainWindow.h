@@ -24,7 +24,7 @@ public:
     Bird *bird;
     Obstacle *obs;
 
-//private:
+private:
     // temporary
     int game_state = 0;     //2表示准备阶段，1代表正在进行， 0代表已经结束
     QTimer *birdTimer;			///控制鸟运动的Timer
