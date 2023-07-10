@@ -1,20 +1,25 @@
 
 #include "window/MainWindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     this->setFixedSize(1000, 800);
+    bg = new Background(this);
 
-    bird = new Bird(this);
-    birdTimer = new QTimer(this);
+   bird = new Bird(this);
+   birdTimer = new QTimer(this);
 
-    obs = new Obstacle(this);
-    obsTimer = new QTimer(this);
+   obs = new Obstacle(this);
+   obsTimer = new QTimer(this);
 
-    connect(birdTimer, SIGNAL(timeout()), bird, SLOT(birdAction()));
-    connect(obsTimer, SIGNAL(timeout()), obs, SLOT(obsAction()));
+//     connect(birdTimer, SIGNAL(timeout()), bird, SLOT(birdAction()));
+    // connect(obsTimer, SIGNAL(timeout()), obs, SLOT(obsAction()));
+
+
+    // commands
+
+    // notifications
 }
 
 MainWindow::~MainWindow()
@@ -50,13 +55,13 @@ MainWindow::~MainWindow()
          game_state = 1;
          birdTimer->start(15);
          obsTimer->start(4);
-         bird->update_birdspeed(1);
+//         bird->update_birdspeed(1);
 
      }
 
      else if(game_state==1)//正在进行
      {
-         bird->update_birdspeed(-8);
+//         bird->update_birdspeed(-8);
      }
 
  }
