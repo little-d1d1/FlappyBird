@@ -4,8 +4,6 @@
 #include <QWidget>
 #include <QPainter>
 #include <QPixmap>
-#include <QTimer>
-#include <qstring.h>
 #include <math.h>
 #include <memory>
 #include "../common/Info.h"
@@ -19,8 +17,9 @@ public:
     ~Background();
     void set_bginfo(const std::shared_ptr<BgInfo>& sp) throw();
     void paintEvent(QPaintEvent *);
+    std::shared_ptr<BgInfo> get_bginfo() const throw();
 
-//private:
+private:
     std::shared_ptr<BgInfo> bginfo;
 };
 

@@ -1,15 +1,13 @@
-
 #include "Bird.h"
 
 Bird::Bird(QWidget *parent)
     : QWidget(parent)
 {
     resize(1000,1000);
-    birdinfo = std::make_shared<BirdInfo>();
 
-    birdtimer = new QTimer(this);
-    connect(birdtimer, SIGNAL(timeout()), this, SLOT(updatebird()));
-    birdtimer->start(10);
+    updateTimer = new QTimer(this);
+    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updatebird()));
+    updateTimer->start(10);
 }
 
 Bird::~Bird()
@@ -31,4 +29,9 @@ void Bird::paintEvent(QPaintEvent *)
 void Bird::updatebird()
 {
     update();
+}
+
+std::shared_ptr<BirdInfo> Bird::get_birdinfo() const throw()
+{
+    return birdinfo;
 }

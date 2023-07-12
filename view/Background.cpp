@@ -4,7 +4,6 @@ Background::Background(QWidget *parent)
     : QWidget(parent)
 {
     resize(1000,1000);
-    bginfo = std::make_shared<BgInfo>();
 }
 
 Background::~Background()
@@ -23,3 +22,7 @@ void Background::paintEvent(QPaintEvent *)
     painter.drawPixmap(0, 0, 1000, 800, bginfo->get_bgname());
 }
 
+std::shared_ptr<BgInfo> Background::get_bginfo() const throw()
+{
+    return bginfo;
+}

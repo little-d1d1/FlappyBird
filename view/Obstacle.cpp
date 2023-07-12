@@ -4,7 +4,10 @@ Obstacles::Obstacles(QWidget *parent)
     : QWidget(parent)
 {
     resize(5000,5000);
-    obsinfo = std::make_shared<ObsInfo>();
+
+    updateTimer = new QTimer(this);
+    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateobs()));
+    updateTimer->start(10);
 }
 
 Obstacles::~Obstacles()
@@ -20,53 +23,25 @@ void Obstacles::set_obsinfo(const std::shared_ptr<ObsInfo>& sp) throw()
 void Obstacles::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    painter.drawPixmap(0, 0, 100, 500, obsinfo->get_obsname1());
 
-    //间隔是200
-
-    QPainter painter1(this);
-    painter1.drawPixmap(0, 700, 100, 800, obsinfo->get_obsname2());
-}
-
-
-
-
-Obstacle::Obstacle(QWidget *parent)
-    : QWidget(parent)
-{
-    resize(5000,5000);
-    for(int i=0; i<1000; i++)//存放障碍物偏移的数组
+    for(int i=0; i<MAXOBS; i++)
     {
-        int randomNumber = QRandomGenerator::global()->bounded(-400, -200);//产生随机数
-
-        int randomNumber1 = QRandomGenerator::global()->bounded(-200, 0);//产生随机数
-        if(i%2==0)
-            height[i] = randomNumber;
-        if(i%2!=0)
-            height[i] = randomNumber1;
-    }  
-
-    for(int i=0; i<1000; i++)
-        obstacle[i] = new Obstacles(this);
-
-    for(int i=0; i<1000; i++)
-    {
-        obstacle[i]->move(1600 + i*300, 0);
+        painter.drawPixmap(obsinfo->get_x1(i), obsinfo->get_y1(i), obsinfo->get_w1(i), obsinfo->get_h1(i), obsinfo->get_obsname1());
+        painter.drawPixmap(obsinfo->get_x2(i), obsinfo->get_y2(i), obsinfo->get_w2(i), obsinfo->get_h2(i), obsinfo->get_obsname2());
     }
+
+    QString score = QString::number(get_obsinfo()->get_score());
+    painter.setPen(Qt::white);
+    painter.setFont(QFont("STHupo", 40));
+    painter.drawText(480, 100, score);
 }
 
-Obstacle::~Obstacle()
+void Obstacles::updateobs()
 {
-
+    update();
 }
 
- void Obstacle::obsAction()
- {
-     int n = 0;
-     for(int i=0; i<1000; i++)
-     {
-         int h = height[n++];
-
-         obstacle[i]->move(obstacle[i]->pos().x()-1, h);
-     }
- }
+std::shared_ptr<ObsInfo> Obstacles::get_obsinfo() const throw()
+{
+    return obsinfo;
+}
