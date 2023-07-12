@@ -1,5 +1,5 @@
 #include "Obstacle.h"
-
+#include "QDebug"
 Obstacles::Obstacles(QWidget *parent)
     : QWidget(parent)
 {
