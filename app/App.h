@@ -3,11 +3,12 @@
 #define APP_H
 
 #include "../window/MainWindow.h"
-#include "../viewmodel/BirdViewModel.h"
-#include "../viewmodel/ObstaclesViewModel.h"
+#include "../viewmodel/MapViewModel.h"
 
-class App
+class App : public QWidget
 {
+    Q_OBJECT
+
 public:
     App();
     ~App() throw();
@@ -16,8 +17,7 @@ public:
     void Show();
 private:
     MainWindow  wndMain;
-    std::shared_ptr<BirdViewModel>  spBirdViewModel;
-    std::shared_ptr<ObstaclesViewModel>  spObstaclesViewModel;
+    std::shared_ptr<MapViewModel> spMapViewModel;
 };
 
 #endif // APP_H
