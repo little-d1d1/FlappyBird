@@ -5,7 +5,7 @@
 #include "../window/MainWindow.h"
 #include "../viewmodel/MapViewModel.h"
 
-class App : public QWidget
+class App : public QObject
 {
     Q_OBJECT
 

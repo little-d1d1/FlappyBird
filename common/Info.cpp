@@ -4,11 +4,17 @@
 BgInfo::BgInfo() throw()
 {
     bgname = ":/back/images/bgf.png";
-}
+    game_state = 0;
+    for(int i=0; i<MAXOBS; i++)//存放障碍物偏移的数组
+    {
+        int randomNumber = QRandomGenerator::global()->bounded(-400, -200);//产生随机数
 
-BgInfo::BgInfo(const BgInfo& b) : bgname(b.bgname)
-{
-
+        int randomNumber1 = QRandomGenerator::global()->bounded(-200, 0);//产生随机数
+        if(i%2==0)
+            height[i] = randomNumber;
+        if(i%2!=0)
+            height[i] = randomNumber1;
+    } 
 }
 
 void BgInfo::set_bgname(const QString& name)
@@ -21,20 +27,36 @@ QString BgInfo::get_bgname() const throw()
     return bgname;
 }
 
+void BgInfo::set_state(int state) throw()
+{
+    this->game_state = state;
+}
+
+int BgInfo::get_state() const throw()
+{
+    return game_state;
+}
+
+const int* BgInfo::get_height() const throw()
+{
+    return height;
+}
+
 //BirdInfo
 BirdInfo::BirdInfo() throw()
 {
-    x = 200;
-    y = 150;
-    w = 35;
-    h = 35;
-    birdspeed = 0;
-    birdname = ":/back/images/bird4.png";
+    init();
+    birdname = ":/back/images/bird.png";
+    birdTimer = new QTimer(this);
 }
 
-BirdInfo::BirdInfo(const BirdInfo& b) : birdname(b.birdname), birdspeed(b.birdspeed), x(b.x), y(b.y), h(b.h), w(b.w)
+void BirdInfo::init()
 {
-
+    x = 200;
+    y = 150;
+    w = 55;
+    h = 55;
+    birdspeed = 0;
 }
 
 void BirdInfo::set_birdname(const QString& name)
@@ -102,11 +124,26 @@ ObsInfo::ObsInfo() throw()
 {
     obsname1 = ":/back/images/hazard1.png";
     obsname2 = ":/back/images/hazard2.png";
+    obsTimer = new QTimer(this);
+    init();
 }
 
-ObsInfo::ObsInfo(const ObsInfo& b) : obsname1(b.obsname1), obsname2(b.obsname2)
+void ObsInfo::init()
 {
-
+    score = 0;
+    for(int i = 0; i < MAXOBS; i++)
+    {
+        x1[i] = 0;
+        x1[i] = 1000 + i * 300;
+        y1[i] = 0;
+        w1[i] = 100;
+        h1[i] = 500;
+        x2[i] = 0;
+        x2[i] = 1000 + i * 300;
+        y2[i] = 700;
+        w2[i] = 100;
+        h2[i] = 500;
+    }
 }
 
 void ObsInfo::set_obsname1(const QString& name)
@@ -129,6 +166,160 @@ QString ObsInfo::get_obsname2() const throw()
     return obsname2;
 }
 
+void ObsInfo::set_x1(int x, int i) throw()
+{
+    this->x1[i] = x;
+}
+
+int ObsInfo::get_x1(int i) const throw()
+{
+    return x1[i];
+}
+
+void ObsInfo::set_x2(int x, int i) throw()
+{
+    this->x2[i] = x;
+}
+
+int ObsInfo::get_x2(int i) const throw()
+{
+    return x2[i];
+}
+
+void ObsInfo::set_y1(int y, int i) throw()
+{
+    this->y1[i] = y;
+}
+
+int ObsInfo::get_y1(int i) const throw()
+{
+    return y1[i];
+}
+
+void ObsInfo::set_y2(int y, int i) throw()
+{
+    this->y2[i] = y;
+}
+
+int ObsInfo::get_y2(int i) const throw()
+{
+    return y2[i];
+}
+
+void ObsInfo::set_h1(int h, int i) throw()
+{
+    this->h1[i] = h;
+}
+
+int ObsInfo::get_h1(int i) const throw()
+{
+    return h1[i];
+}
+
+void ObsInfo::set_h2(int h, int i) throw()
+{
+    this->h2[i] = h;
+}
+
+int ObsInfo::get_h2(int i) const throw()
+{
+    return h2[i];
+}
+
+void ObsInfo::set_w1(int w, int i) throw()
+{
+    this->w1[i] = w;
+}
+
+int ObsInfo::get_w1(int i) const throw()
+{
+    return w1[i];
+}
+
+void ObsInfo::set_w2(int w, int i) throw()
+{
+    this->w2[i] = w;
+}
+
+int ObsInfo::get_w2(int i) const throw()
+{
+    return w2[i];
+}
+
+void ObsInfo::set_score(int score) throw()
+{
+    this->score = score;
+}
+
+int ObsInfo::get_score() const throw()
+{
+    return score;
+}
+
+//GoInfo
+GoInfo::GoInfo() throw()
+{
+    goname = ":/back/images/go.jpg";
+    init();
+}
+
+void GoInfo::init()
+{
+    x = -800;
+    y = 150;
+    w = 500;
+    h = 400;
+}
+
+void GoInfo::set_goname(const QString& name)
+{
+    this->goname = name;
+}
+
+QString GoInfo::get_goname() const throw()
+{
+    return goname;
+}
+
+void GoInfo::set_x(int x) throw()
+{
+    this->x = x;
+}
+
+int GoInfo::get_x() const throw()
+{
+    return x;
+}
+
+void GoInfo::set_y(int y) throw()
+{
+    this->y = y;
+}
+
+int GoInfo::get_y() const throw()
+{
+    return y;
+}
+
+void GoInfo::set_h(int h) throw()
+{
+    this->h = h;
+}
+
+int GoInfo::get_h() const throw()
+{
+    return h;
+}
+
+void GoInfo::set_w(int w) throw()
+{
+    this->w = w;
+}
+
+int GoInfo::get_w() const throw()
+{
+    return w;
+}
 
 //Map
 Map::Map() throw()
@@ -136,9 +327,10 @@ Map::Map() throw()
     bginfo = std::make_shared<BgInfo>();
     birdinfo = std::make_shared<BirdInfo>();
     obsinfo = std::make_shared<ObsInfo>();
+    goinfo = std::make_shared<GoInfo>();
 }
 
-Map::Map(const Map& b) : bginfo(b.bginfo), birdinfo(b.birdinfo), obsinfo(b.obsinfo)
+Map::Map(const Map& b) : bginfo(b.bginfo), birdinfo(b.birdinfo), obsinfo(b.obsinfo), goinfo(b.goinfo)
 {
 
 }
@@ -173,3 +365,12 @@ std::shared_ptr<ObsInfo> Map::get_obsinfo() const throw()
     return obsinfo;
 }
 
+void Map::set_goinfo(const std::shared_ptr<GoInfo>& info)
+{
+    this->goinfo = info;
+}
+
+std::shared_ptr<GoInfo> Map::get_goinfo() const throw()
+{
+    return goinfo;
+}

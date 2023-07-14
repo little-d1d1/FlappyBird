@@ -20,15 +20,14 @@ bool App::Init()
 
     // properties
     wndMain.bg->set_bginfo(spMapViewModel->get_bginfo());
-    for(int i=0; i<1000; i++)
-    {
-        wndMain.obs->obstacle[i]->set_obsinfo(spMapViewModel->get_obsinfo());
-    }
+    wndMain.obs->set_obsinfo(spMapViewModel->get_obsinfo());
     wndMain.bird->set_birdinfo(spMapViewModel->get_birdinfo());
+    wndMain.go->set_goinfo(spMapViewModel->get_goinfo());
 
     // notification
-    connect(wndMain.birdTimer, SIGNAL(timeout()), spMapViewModel.get(), SLOT(birdAction()));
-
+    connect(wndMain.bird->get_birdinfo()->birdTimer, SIGNAL(timeout()), spMapViewModel.get(), SLOT(birdAction()));
+    connect(wndMain.obs->get_obsinfo()->obsTimer, SIGNAL(timeout()), spMapViewModel.get(), SLOT(obsAction()));
+    connect(wndMain.obs->get_obsinfo()->obsTimer, SIGNAL(timeout()), spMapViewModel.get(), SLOT(Detect()));
 
     return true;
 }

@@ -7,6 +7,7 @@
 #include "../view/Bird.h"
 #include "../view/Obstacle.h"
 #include "../view/Background.h"
+#include "../view/Gameover.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,14 +24,9 @@ public:
     void MainEvent();
 
     Bird *bird;
-    Obstacle *obs;
+    Obstacles *obs;
     Background *bg;
-    QTimer *birdTimer;			///控制鸟运动的Timer
-    QTimer *obsTimer;
-
-private:
-    // temporary
-    int game_state = 0;     //2表示准备阶段，1代表正在进行， 0代表已经结束
+    Gameover *go;
 };
 
 #endif // MAINWINDOW_H
