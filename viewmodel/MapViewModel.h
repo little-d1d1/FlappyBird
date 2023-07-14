@@ -18,11 +18,16 @@ public:
 	std::shared_ptr<BirdInfo> get_birdinfo() throw();
 	std::shared_ptr<ObsInfo> get_obsinfo() throw();
 	std::shared_ptr<BgInfo> get_bginfo() throw();
+	std::shared_ptr<GoInfo> get_goinfo() throw();
 
 private slots:
     void birdAction();
+    void obsAction();
+    void Detect();
     
 private:
+    void Fail();
+
     std::shared_ptr<MapModel> model;
 };
 

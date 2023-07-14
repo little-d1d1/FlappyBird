@@ -14,7 +14,13 @@ std::shared_ptr<ObsInfo> MapModel::get_obsinfo() throw()
 {
     return map->get_obsinfo();
 }
+
 std::shared_ptr<BgInfo> MapModel::get_bginfo() throw()
 {
     return map->get_bginfo();
+}
+
+std::shared_ptr<GoInfo> MapModel::get_goinfo() throw()
+{
+    return map->get_goinfo();
 }
