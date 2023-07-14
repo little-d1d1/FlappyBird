@@ -4,6 +4,7 @@
 
 #include <QMainWindow>
 #include <QMouseEvent>
+#include <QKeyEvent>
 #include "../view/Bird.h"
 #include "../view/Obstacle.h"
 #include "../view/Background.h"
@@ -21,6 +22,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void mousePressEvent(QMouseEvent *event);
+    void keyPressEvent(QKeyEvent *event);
     void MainEvent();
 
     Bird *bird;

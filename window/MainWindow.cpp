@@ -32,6 +32,20 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     }
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if((event->key()==Qt::Key_Space) && bg->get_bginfo()->get_state()==0)
+    {
+        bg->get_bginfo()->set_state(2);
+        MainEvent();
+    }
+
+    else if((event->key()==Qt::Key_Space) && bg->get_bginfo()->get_state()==1)
+    {
+        MainEvent();
+    }
+}
+
 void MainWindow::MainEvent()
 {
     if(bg->get_bginfo()->get_state()==2)  //准备阶段
